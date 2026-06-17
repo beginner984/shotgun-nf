@@ -1,0 +1,60 @@
+# Nextflow
+.nextflow*
+work/
+.nextflow.log*
+timeline.html
+trace.txt
+report.html
+dag.html
+
+# Results and large outputs
+results/
+results_*/
+report_*/
+benchmark/
+benchmark_results/
+shotgunNFreports/
+logs/
+raw_fastq/
+databases/
+containers/
+
+# Temporary files
+*.tmp
+*.log
+*.err
+*.out
+*.Rhistory
+.RData
+.DS_Store
+
+# Python/R cache
+__pycache__/
+*.pyc
+.Rproj.user/
+
+# Large sequencing files
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.sam
+*.cram
+*.fa
+*.fasta
+*.fna
+*.faa
+*.gbk
+*.gff
+*.bt2
+*.bt2l
+*.mmi
+*.sif
+*.tar.gz
+*.zip
+
+# Databases
+scripts/databases/
+**/databases/
+taxonomy.tab

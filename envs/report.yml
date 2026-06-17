@@ -1,0 +1,20 @@
+name: shotgun_nf_report
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - r-base
+  - r-tidyverse
+  - r-rmarkdown
+  - r-knitr
+  - r-readr
+  - r-dplyr
+  - r-tidyr
+  - r-ggplot2
+  - r-pheatmap
+  - r-vegan
+  - r-scales
+  - r-stringr
+  - r-forcats
+  - pandoc

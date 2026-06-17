@@ -1,0 +1,12 @@
+name: humann
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.12
+  - humann=3.9
+  - metaphlan=4.2.4
+  - diamond
+  - bowtie2
+  - samtools
