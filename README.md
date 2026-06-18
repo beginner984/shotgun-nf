@@ -31,7 +31,60 @@ Depending on the selected options, Shotgun-NF can perform:
 
 All major analyses can be independently enabled or disabled using pipeline parameters.	
 
-##Typical usage
+## Modular execution
+
+Shotgun-NF is designed as a modular workflow. Individual analyses can be enabled or disabled according to the study design, sample type, and available computational resources.
+
+| Module                                         | Default        | Can be skipped                     |
+| ---------------------------------------------- | -------------- | ---------------------------------- |
+| fastp                                          | Yes            | No                                 |
+| Host removal                                   | User-dependent | Yes                                |
+| Kraken2 / Bracken / Krona                      | Yes            | Yes                                |
+| HUMAnN                                         | Yes            | Yes                                |
+| MEGAHIT assembly                               | Yes            | Yes                                |
+| MetaBAT2 binning                               | Yes            | No (if the MAG branch is executed) |
+| CheckM2 quality assessment                     | Yes            | No                                 |
+| Prokka annotation                              | Yes            | Yes                                |
+| RGI antimicrobial resistance detection         | Yes            | Yes                                |
+| antiSMASH biosynthetic gene cluster prediction | Yes            | Yes                                |
+| GTDB-Tk taxonomic classification               | No             | Yes                                |
+| FastANI comparative genomics                   | No             | Yes                                |
+| StrainPhlAn strain-level phylogeny             | Yes            | Yes                                |
+| eggNOG-mapper functional annotation            | No             | Yes                                |
+| MultiQC summary report                         | Yes            | Yes                                |
+| Automatic HTML report                          | No             | Yes                                |
+
+### Example use cases
+
+**Human-associated metagenomes (host removal enabled):**
+
+```bash
+--skip_host_removal false
+```
+
+**Environmental metagenomes without a host reference genome:**
+
+```bash
+--skip_host_removal true
+```
+
+**Run without eggNOG functional annotation:**
+
+```bash
+--run_eggnog false
+```
+
+**Enable eggNOG functional annotation:**
+
+```bash
+--run_eggnog true
+```
+
+Shotgun-NF supports both complete end-to-end analysis and modular execution, allowing users to enable or disable components such as host removal, HUMAnN, eggNOG-mapper, GTDB-Tk, FastANI, antiSMASH, and strain-level profiling according to their experimental design and computational requirements.
+
+
+
+# Typical usage
 
 # Full pipeline
 
