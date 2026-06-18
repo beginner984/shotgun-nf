@@ -46,18 +46,48 @@ Please follow the instructions in `DATABASES.md` to download and configure:
 
 ---
 
-# 4. Configure the pipeline
+## Configure Shotgun-NF
 
-Copy the template configuration file:
+Shotgun-NF is configured through a user-specific configuration file. The recommended approach is to create a personal copy of the provided template and modify it according to your local environment.
+
+Create your own configuration file:
 
 ```bash
 cp conf/template.config my.config
 ```
 
-Edit `my.config` and replace the example paths with the locations of your local databases.
+Open `my.config` in your preferred text editor and update the database paths to match your system.
 
----
+For example:
 
+```groovy
+checkm2_db = "/data/databases/checkm2/uniref100.KO.1.dmnd"
+kraken2_db = "/data/databases/kraken2"
+card_db    = "/data/databases/CARD/localDB"
+gtdbtk_db  = "/data/databases/gtdbtk/release226"
+```
+
+You may also customise which modules are executed by changing the corresponding boolean parameters. For example:
+
+```groovy
+run_gtdbtk      = true
+run_fastani     = true
+run_eggnog      = false
+run_strainphlan = false
+skip_host_removal = true
+```
+
+The original `conf/template.config` should remain unchanged so that it can be reused as a clean template. All user-specific modifications should be made in `my.config`.
+
+The pipeline can then be executed using:
+
+```bash
+nextflow run beginner984/shotgun-nf \
+    -profile local \
+    -c my.config \
+    --input samplesheet.csv \
+    --outdir results
+```
 # 5. Prepare the input samplesheet
 
 The input samplesheet must contain three columns:
