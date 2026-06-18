@@ -616,3 +616,14 @@ GTDB-Tk: pending database completion
 Process failure is detected by Nextflow using task exit status and validation of expected output files. Failed tasks are recorded in `.nextflow.log`, `trace.tsv`, and the corresponding task work directory under `work/`.
 
 For critical analysis steps, the pipeline is intended to terminate on failure to prevent propagation of invalid intermediate results. Where appropriate, controlled retry behaviour may be enabled for infrastructure-related failures.
+
+## Getting started
+
+If you are using Shotgun-NF for the first time, please see the detailed installation and execution guide:
+
+* **Getting Started:** `docs/getting_started.md`
+* **Database installation:** `DATABASES.md`
+* **Example configuration:** `conf/template.config`
+
+The Getting Started guide explains how to install the required software, configure databases, prepare the input samplesheet, run different pipeline modules, resume interrupted analyses, and interpret the output directory structure.
+
