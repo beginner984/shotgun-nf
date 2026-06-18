@@ -58,3 +58,5 @@ __pycache__/
 scripts/databases/
 **/databases/
 taxonomy.tab
+
+!test_data/minigut/raw_fastq/**
