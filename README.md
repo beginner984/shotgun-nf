@@ -1,8 +1,59 @@
-# Shotgun Metagenomics Pipeline (Nextflow)
+# Shotgun-NF
 
-## Overview
+## Introduction
 
-## Workflow diagram
+Shotgun-NF is a Nextflow DSL2 pipeline for comprehensive shotgun metagenomics analysis.
+
+The pipeline integrates read quality control, taxonomic profiling, metagenome assembly, genome binning, MAG quality assessment, functional annotation, antimicrobial resistance detection, biosynthetic gene cluster prediction, strain-level profiling and comparative genomics into a single reproducible workflow.
+
+The pipeline is portable across HPC systems and local workstations through Conda and Apptainer environments.
+
+## Pipeline summary
+
+Depending on the selected options, Shotgun-NF can perform:
+
+- Read quality control (fastp)
+- Host removal
+- Taxonomic profiling (Kraken2 + Bracken + Krona)
+- Functional profiling (HUMAnN3)
+- Metagenome assembly (MEGAHIT)
+- Genome binning (MetaBAT2)
+- MAG quality assessment (CheckM2)
+- MAG filtering
+- Genome annotation (Prokka)
+- Antimicrobial resistance prediction (RGI/CARD)
+- Biosynthetic gene cluster prediction (antiSMASH)
+- MAG taxonomic classification (GTDB-Tk)
+- Whole-genome similarity analysis (FastANI)
+- Strain-level phylogeny (MetaPhlAn + StrainPhlAn)
+- MultiQC reporting
+- Automatic HTML report generation
+
+All major analyses can be independently enabled or disabled using pipeline parameters.	
+
+##Typical usage
+
+# Full pipeline
+
+nextflow run beginner984/shotgun-nf \
+-profile conda \
+--input samples.csv \
+--outdir results
+
+# Taxonomic profiling only
+
+--run_humann false \
+--run_antismash false \
+--run_gtdbtk false \
+--run_fastani false \
+--run_strainphlan false
+
+# MAG analysis only
+
+--run_strainphlan false \
+--run_humann false
+
+## Workflow overview
 
 The pipeline processes paired-end shotgun metagenomics FASTQ files through assembly, binning, quality filtering, annotation, AMR detection, BGC detection, taxonomic profiling, strain-level analysis, and MAG taxonomy.
 
