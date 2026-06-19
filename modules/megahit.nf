@@ -5,7 +5,7 @@ process MEGAHIT {
     publishDir "${params.outdir}/assembly", mode: 'copy'
 
 
-    conda "bioconda::megahit=1.2.9"
+    conda "${projectDir}/envs/megahit.yml"
 
     input:
     tuple val(sample_id), path(reads)
