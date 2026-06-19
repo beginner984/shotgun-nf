@@ -85,6 +85,10 @@ if( !params.skip_host_removal && params.host_index ) {
         humann_tables_pathabundance_ch = humann_tables_out.pathabundance_cpm
     }
 
+    if (params.run_kraken2 && !params.kraken2_db) {
+        error "Missing required parameter: --kraken2_db. Provide it in a config file or on the command line."
+    }
+
     kraken_db_ch = Channel.value(file(params.kraken2_db))
     kraken_out = KRAKEN2(host_removed_reads, kraken_db_ch)
 
@@ -129,6 +133,10 @@ if( !params.skip_host_removal && params.host_index ) {
 
     if (params.run_eggnog) {
         eggnog_out = EGGNOG(passed_bins_out)
+    }
+
+    if (!params.card_db) {
+        error "Missing required parameter: --card_db. Provide it in a config file or on the command line."
     }
 
     card_db_ch = Channel.value(file(params.card_db))
