@@ -60,3 +60,11 @@ scripts/databases/
 taxonomy.tab
 
 !test_data/minigut/raw_fastq/**
+
+# Pipeline validation outputs
+clean_validation_results/
+validation_results/
+test_results/
+results/
+work/
+.nextflow/
