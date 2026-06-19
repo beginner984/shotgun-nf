@@ -4,7 +4,7 @@ process KRAKEN2 {
 
     publishDir "${params.outdir}/kraken2", mode: 'copy'
 
-    conda "bioconda::kraken2=2.1.3"
+    conda "${projectDir}/envs/kraken2.yml"
 
     input:
     tuple val(sample_id), path(reads)

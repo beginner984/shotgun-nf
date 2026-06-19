@@ -4,7 +4,7 @@ process FASTP {
 
     publishDir "${params.outdir}/fastp", mode: 'copy'
 
-    conda "bioconda::fastp=0.23.4"
+    conda "${projectDir}/envs/fastp.yml"
 
     input:
     tuple val(sample_id), path(reads)

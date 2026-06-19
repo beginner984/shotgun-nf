@@ -4,7 +4,7 @@ process QUAST {
 
     publishDir "${params.outdir}/quast", mode: 'copy'
 
-    conda "bioconda::quast"
+    conda "${projectDir}/envs/quast.yml"
 
     input:
     tuple val(sample_id), path(contigs)

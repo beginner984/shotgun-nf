@@ -4,7 +4,7 @@ process BRACKEN {
 
     publishDir "${params.outdir}/bracken", mode: 'copy'
 
-    conda "bioconda::bracken=2.9"
+    conda "${projectDir}/envs/bracken.yml"
 
     input:
     tuple val(sample_id), path(kraken_report)

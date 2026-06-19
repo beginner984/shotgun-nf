@@ -4,7 +4,7 @@ process KRONA {
 
     publishDir "${params.outdir}/krona", mode: 'copy'
 
-    conda "bioconda::krona=2.8.1"
+    conda "${projectDir}/envs/krona.yml"
 
     input:
     tuple val(sample_id), path(kraken_output)

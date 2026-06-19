@@ -4,7 +4,7 @@ process EGGNOG {
 
     publishDir "${params.outdir}/eggnog", mode: 'copy'
 
-    conda "bioconda::eggnog-mapper=2.1.12"
+    conda "${projectDir}/envs/eggnog.yml"
 
     cpus 8
     memory '32 GB'
