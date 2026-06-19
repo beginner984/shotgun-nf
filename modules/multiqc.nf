@@ -4,7 +4,7 @@ process MULTIQC {
 
     publishDir "${params.outdir}/multiqc", mode: 'copy'
 
-    conda "bioconda::multiqc=1.19"
+    conda "${projectDir}/envs/report.yml"
 
     input:
     val results_dir

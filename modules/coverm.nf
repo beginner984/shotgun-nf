@@ -19,18 +19,26 @@ process COVERM {
     """
     mkdir -p coverm_bins
 
-    for f in ${bin_dir}/*.fa; do
-        base=\$(basename "\$f" .fa)
-        ln -s "\$PWD/\$f" coverm_bins/\${base}.fna
-    done
+    if ls ${bin_dir}/*.fa >/dev/null 2>&1; then
 
-    coverm genome \
-        --coupled ${r1} ${r2} \
-        --genome-fasta-directory coverm_bins \
-        --methods relative_abundance mean covered_fraction \
-        --min-read-percent-identity 95 \
-        --min-read-aligned-percent 75 \
-        --threads ${task.cpus} \
-        --output-file ${sample_id}.coverm_mag_abundance.tsv
+        for f in ${bin_dir}/*.fa; do
+            base=\$(basename "\$f" .fa)
+            ln -s "\$PWD/\$f" coverm_bins/\${base}.fna
+        done
+
+        coverm genome \\
+            --coupled ${r1} ${r2} \\
+            --genome-fasta-directory coverm_bins \\
+            --methods relative_abundance mean covered_fraction \\
+            --min-read-percent-identity 95 \\
+            --min-read-aligned-percent 75 \\
+            --threads ${task.cpus} \\
+            --output-file ${sample_id}.coverm_mag_abundance.tsv
+
+    else
+
+        echo -e "Genome\\trelative_abundance\\tmean\\tcovered_fraction" > ${sample_id}.coverm_mag_abundance.tsv
+
+    fi
     """
 }

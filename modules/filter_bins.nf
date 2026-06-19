@@ -12,9 +12,13 @@ process FILTER_BINS {
 
     script:
     """
-    awk 'BEGIN{FS=OFS="\\t"}
-     NR==1 {print \$0; next}
-     \$2 >= ${params.min_completeness} && \$3 < ${params.max_contamination} {print \$0}' \
-     ${checkm2_dir}/quality_report.tsv > ${sample_id}_passed_bins.tsv
+    if [ -f ${checkm2_dir}/quality_report.tsv ]; then
+        awk 'BEGIN{FS=OFS="\\t"}
+         NR==1 {print \$0; next}
+         \$2 >= ${params.min_completeness} && \$3 < ${params.max_contamination} {print \$0}' \
+         ${checkm2_dir}/quality_report.tsv > ${sample_id}_passed_bins.tsv
+    else
+        echo -e "Name\\tCompleteness\\tContamination" > ${sample_id}_passed_bins.tsv
+    fi
     """
 }

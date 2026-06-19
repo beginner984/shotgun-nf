@@ -1,9 +1,13 @@
 name: shotgun_nf_report
+
 channels:
   - conda-forge
   - bioconda
   - defaults
+
 dependencies:
+  - python=3.10
+  - multiqc=1.19
   - r-base
   - r-tidyverse
   - r-rmarkdown

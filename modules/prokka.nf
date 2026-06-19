@@ -4,26 +4,35 @@ process PROKKA {
 
     publishDir "${params.outdir}/prokka", mode: 'copy'
 
+    cpus 4
+    memory '16 GB'
+    time '12h'
+
     conda "${projectDir}/envs/prokka.yml"
 
     input:
-    tuple val(sample_id), path(bin_dir)
+    tuple val(sample_id), path(passed_bins_dir)
 
     output:
     tuple val(sample_id), path("${sample_id}_prokka")
 
     script:
     """
-    mkdir ${sample_id}_prokka
+    rm -rf ${sample_id}_prokka
+    mkdir -p ${sample_id}_prokka
 
-    for bin in ${bin_dir}/*.fa; do
-        bin_name=\$(basename \$bin .fa)
+    if ls ${passed_bins_dir}/*.fa >/dev/null 2>&1; then
+        for bin in ${passed_bins_dir}/*.fa; do
+            bin_name=\$(basename \$bin .fa)
 
-        prokka \
-            --outdir ${sample_id}_prokka/\${bin_name} \
-            --prefix \${bin_name} \
-            --cpus ${task.cpus} \
-            \$bin
-    done
+            prokka \\
+              --outdir ${sample_id}_prokka/\${bin_name} \\
+              --prefix \${bin_name} \\
+              --cpus ${task.cpus} \\
+              \$bin
+        done
+    else
+        echo "No passed MAG bins available for Prokka annotation for ${sample_id}" > ${sample_id}_prokka/NO_BINS_FOUND.txt
+    fi
     """
 }

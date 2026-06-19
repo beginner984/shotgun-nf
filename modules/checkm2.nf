@@ -19,13 +19,18 @@ process CHECKM2 {
     script:
     """
     rm -rf ${sample_id}_checkm2
+    mkdir -p ${sample_id}_checkm2
 
-    checkm2 predict \\
-      --threads ${task.cpus} \\
-      --input ${bin_dir} \\
-      --output-directory ${sample_id}_checkm2 \\
-      --database_path ${params.checkm2_db} \\
-      -x fa \\
-      --lowmem
+    if ls ${bin_dir}/*.fa >/dev/null 2>&1; then
+        checkm2 predict \\
+          --threads ${task.cpus} \\
+          --input ${bin_dir} \\
+          --output-directory ${sample_id}_checkm2 \\
+          --database_path ${params.checkm2_db} \\
+          -x fa \\
+          --lowmem
+    else
+        echo "No MAG bins detected for ${sample_id}" > ${sample_id}_checkm2/NO_BINS_FOUND.txt
+    fi
     """
 }
