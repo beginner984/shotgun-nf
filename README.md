@@ -627,3 +627,9 @@ If you are using Shotgun-NF for the first time, please see the detailed installa
 
 The Getting Started guide explains how to install the required software, configure databases, prepare the input samplesheet, run different pipeline modules, resume interrupted analyses, and interpret the output directory structure.
 
+## Documentation
+
+- README.md
+- DATABASES.md
+- OUTPUT_MAP.md
+- SOFTWARE_VERSIONS.md

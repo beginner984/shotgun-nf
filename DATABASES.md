@@ -49,3 +49,64 @@
 - Tool: GTDB-Tk v2.7.0
 - Database: GTDB release r226
 - Source: https://gtdb.ecogenomic.org/
+
+# Database Requirements and Installation
+
+For reproducibility, Shotgun-NF requires several external reference databases. Users must download and configure these databases before running the pipeline.
+
+## Required Documentation
+
+The repository should clearly specify:
+
+1. Which databases are required.
+2. Which database versions were used in the publication.
+3. Where each database can be downloaded.
+4. Which configuration parameter corresponds to each database.
+
+## Recommended Database Table
+
+| Parameter        | Database                  | Version used in paper               | Download source |
+| ---------------- | ------------------------- | ----------------------------------- | --------------- |
+| kraken2_db       | Kraken2 Standard Database | Version used in manuscript          | Kraken2         |
+| checkm2_db       | CheckM2 Database          | uniref100.KO.1.dmnd                 | CheckM2 GitHub  |
+| card_db          | CARD Database             | CARD version used by RGI 6.0.3      | CARD            |
+| metaphlan_db_dir | MetaPhlAn Database        | mpa_vJan25_CHOCOPhlAnSGB_202503     | MetaPhlAn       |
+| strainphlan_pkl  | MetaPhlAn PKL Reference   | mpa_vJan25_CHOCOPhlAnSGB_202503.pkl | MetaPhlAn       |
+| gtdbtk_db        | GTDB-Tk Database          | GTDB r226                           | GTDB-Tk         |
+| krona_taxonomy   | Krona Taxonomy            | Latest compatible release           | Krona           |
+
+## Example Database Setup Instructions
+
+### MetaPhlAn
+
+Install MetaPhlAn database:
+
+```bash
+metaphlan --install
+```
+
+This creates a database such as:
+
+```text
+mpa_vJan25_CHOCOPhlAnSGB_202503
+```
+
+Configuration:
+
+```groovy
+metaphlan_db_dir = "/path/to/metaphlan"
+metaphlan_index  = "mpa_vJan25_CHOCOPhlAnSGB_202503"
+```
+
+## Future Improvements
+
+A future release may provide a helper script:
+
+```bash
+./bin/download_databases.sh
+```
+
+which automatically downloads and configures all required databases.
+
+For version 1.0.0, a comprehensive `DATABASES.md` together with `conf/template.config` is sufficient. This approach is common among published bioinformatics pipelines and provides users with all information required to reproduce the analysis environment.
+
