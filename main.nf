@@ -3,6 +3,45 @@ nextflow.enable.dsl=2
 params.input = params.input ?: "samplesheet.csv"
 params.outdir = params.outdir ?: "results"
 
+if (params.help) {
+    log.info """
+Shotgun-NF
+
+Usage:
+  nextflow run . -profile <profile> -c <config> --input samplesheet.csv --outdir results
+
+Required parameters:
+  --input               Input samplesheet (sample, fastq_1, fastq_2)
+  --outdir              Output directory
+
+Common optional parameters:
+  --skip_host_removal   Skip host read removal
+  --skip_krona          Skip Krona visualisation
+  --run_humann          Enable HUMAnN functional profiling
+  --run_antismash       Enable antiSMASH
+  --run_gtdbtk          Enable GTDB-Tk classification
+  --run_fastani         Enable FastANI
+  --run_strainphlan     Enable StrainPhlAn
+  --run_eggnog          Enable eggNOG annotation
+  --make_report         Generate automated HTML report
+
+Profiles:
+  local
+  eureka2
+  conda
+  test
+
+Example:
+  nextflow run . -profile local -c my.config --input samplesheet.csv --outdir results --make_report true -resume
+
+Documentation:
+  README.md
+  DATABASES.md
+  docs/getting_started.md
+"""
+    System.exit(0)
+}
+
 // ---------------- INPUT CHANNEL ----------------
 
 Channel
