@@ -1,0 +1,57 @@
+---
+title: "Shotgun-NF Automated Microbiome Report"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+params:
+  outdir: "."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+outdir <- params$outdir
+```
+
+# Summary
+
+```{r}
+read.csv(file.path(outdir, "tables", "report_summary.csv"))
+```
+
+# Quality control
+
+![](figures/qc_read_retention.png)
+
+# Taxonomic profiling
+
+![](figures/taxonomy_top_species.png)
+
+![](figures/metaphlan_top_species.png)
+
+# MAG quality
+
+![](figures/mag_quality.png)
+
+![](figures/mag_quality_classes.png)
+
+# Trusted MAG AMR evidence
+
+![](figures/trusted_mag_amr.png)
+
+```{r}
+head(read.csv(file.path(outdir, "tables", "trusted_mag_amr.csv")), 20)
+```
+
+# Trusted MAG BGC evidence
+
+![](figures/trusted_mag_bgc.png)
+
+```{r}
+head(read.csv(file.path(outdir, "tables", "trusted_mag_bgc.csv")), 20)
+```
+
+# Runtime
+
+![](figures/runtime_by_process.png)

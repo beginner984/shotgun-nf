@@ -29,6 +29,7 @@ Profiles:
   local
   eureka2
   conda
+  apptainer
   test
 
 Example:

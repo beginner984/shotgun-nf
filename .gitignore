@@ -13,11 +13,17 @@ results_*/
 report_*/
 benchmark/
 benchmark_results/
-shotgunNFreports/
+# Keep report source code and container recipes tracked
+# Ignore only large/local/generated assets
 logs/
 raw_fastq/
 databases/
-containers/
+containers/*.sif
+containers/*.img
+containers/*.tar
+containers/*/*.sif
+containers/*/*.img
+containers/*/*.tar
 
 # Temporary files
 *.tmp

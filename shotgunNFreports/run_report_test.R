@@ -1,0 +1,31 @@
+source("R/utils.R")
+source("R/read_fastp.R")
+source("R/read_bracken.R")
+source("R/read_humann.R")
+source("R/plot_metaphlan.R")
+source("R/read_metaphlan.R")
+source("R/plot_checkm2.R")
+source("R/read_checkm2.R")
+source("R/plot_rgi.R")
+source("R/read_rgi.R")
+source("R/plot_antismash.R")
+source("R/plot_runtime.R")
+source("R/read_antismash.R")
+source("R/plot_taxonomy.R")
+source("R/plot_diversity.R")
+source("R/plot_humann.R")
+source("R/report_summary.R")
+source("R/module_summary.R")
+source("R/read_humann_stratified.R")
+source("R/plot_humann_stratified.R")
+source("R/mag_quality_summary.R")
+source("R/filter_high_quality_mags.R")
+source("R/mag_amr_summary.R")
+source("R/mag_bgc_summary.R")
+source("R/report.R")
+
+make_shotgunnf_report(
+  results_dir = "../results",
+  outdir = "../paper/results_evidence/final/auto_report_test",
+  exclude_samples = NULL
+)
