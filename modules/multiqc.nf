@@ -11,7 +11,7 @@ process MULTIQC {
     path trigger
 
     output:
-    path "multiqc_report.html"
+    path "multiqc_report.html", emit: report
 
     script:
     """

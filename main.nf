@@ -195,7 +195,7 @@ multiqc_out = MULTIQC(params.outdir, multiqc_trigger)
 
 provenance_out = PROVENANCE(params.outdir)
     if (params.make_report) {
-        report_out = REPORT(params.outdir)
+        report_out = REPORT(params.outdir, multiqc_out.report)
     }
 
 }

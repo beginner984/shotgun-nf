@@ -9,6 +9,7 @@ process REPORT {
 
     input:
     val results_dir
+    path multiqc_report
 
     output:
     path "auto_report/*", optional: true, emit: report
