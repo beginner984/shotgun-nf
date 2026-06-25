@@ -1,5 +1,12 @@
 # DATABASES.md
 
+## Exact database set used in the manuscript
+
+The exact reference assets used for the manuscript are listed in:
+
+```text
+assets/reference_databases_used_in_manuscript.tsv
+
 # Shotgun-NF Database Requirements
 
 Shotgun-NF requires several external reference databases. These databases are not distributed with the repository and must be downloaded separately before running the pipeline.
@@ -136,7 +143,7 @@ Tool version:
 
 Database used in manuscript:
 
-* mpa_vJan25_CHOCOPhlAnSGB_202503
+* mpa_vJun23_CHOCOPhlAnSGB_202307
 
 Install:
 

@@ -1,0 +1,12 @@
+resource	module	version_or_release	used_in_manuscript	notes
+Kraken2 standard database	Kraken2/Bracken	standard build	yes	Built locally with kraken2-build --standard
+CheckM2 database	CheckM2	uniref100.KO.1.dmnd	yes	Downloaded with checkm2 database --download
+CARD database	RGI/CARD	CARD compatible with RGI 6.0.3	yes	Loaded locally using rgi load
+MetaPhlAn database	MetaPhlAn/StrainPhlAn	mpa_vJun23_CHOCOPhlAnSGB_202307	yes	This was the database used for manuscript analysis
+StrainPhlAn pkl	StrainPhlAn	mpa_vJun23_CHOCOPhlAnSGB_202307.pkl	yes	Generated with MetaPhlAn database installation
+HUMAnN nucleotide database	HUMAnN	ChocoPhlAn v2019	yes	Downloaded with humann_databases
+HUMAnN protein database	HUMAnN	UniRef90 201901b	yes	uniref90_201901b_full.dmnd
+GTDB-Tk database	GTDB-Tk	release226	yes	Used when run_gtdbtk=true
+antiSMASH container	antiSMASH	antiSMASH 8.0.4	yes	Apptainer/Singularity image
+Krona taxonomy	Krona	current local taxonomy at run time	yes	Generated with ktUpdateTaxonomy.sh
+Host Bowtie2 index	Host removal	user supplied	no	Optional only if skip_host_removal=false
