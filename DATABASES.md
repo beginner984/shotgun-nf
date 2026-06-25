@@ -2,8 +2,6 @@
 
 ## Exact databases used in the manuscript
 
-## Exact databases used in the manuscript
-
 The database releases used during development, validation, benchmarking, and manuscript generation are documented in:
 
 ```text
