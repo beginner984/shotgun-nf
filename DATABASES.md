@@ -1,26 +1,14 @@
-# DATABASES.md
+# Shotgun-NF Database Requirements
 
-## Exact databases used in the manuscript
+Shotgun-NF requires several external reference databases that are not distributed with the repository. This document describes all external resources required by Shotgun-NF, including biological reference databases, reference indexes, and container images required by specific modules.
 
-The database releases used during development, validation, benchmarking, and manuscript generation are documented in:
+The exact database releases used during development, validation, benchmarking and manuscript preparation are documented in
 
 ```text
 databases/reference_databases_used_in_manuscript.tsv
 ```
 
-To simplify installation, Shotgun-NF provides a helper script that prepares the expected database directory structure and generates a template configuration file containing all required database paths:
-
-```bash
-bash scripts/download_reference_assets.sh databases
-```
-
-Users may use newer database releases, although results may differ from those reported in this manuscript.
-
-# Shotgun-NF Database Requirements
-
-Shotgun-NF requires several external reference databases. These databases are not distributed with the repository and must be downloaded separately before running the pipeline.
-
-The database versions listed below were used during development, validation, benchmarking, and manuscript preparation. Newer database releases are expected to be compatible with the workflow but may produce results that differ from those reported in this manuscript.
+A helper script prepares the expected database directory structure and generates a template configuration file.
 
 ## Quick Setup
 
@@ -122,11 +110,9 @@ Database:
 
 * CARD database compatible with RGI v6.0.3
 
-Download:
+Download / installation:
 
-```bash
-rgi load --card_json
-```
+Install CARD for the RGI version used by the pipeline following the official CARD/RGI instructions. The loaded CARD database must be compatible with RGI v6.0.3.
 
 Configuration:
 
@@ -135,6 +121,7 @@ card_db = "/path/to/card_database"
 ```
 
 Source:
+
 https://card.mcmaster.ca/
 
 ---
