@@ -1,17 +1,28 @@
 # DATABASES.md
 
-## Exact database set used in the manuscript
+## Exact databases used in the manuscript
 
-The exact reference assets used for the manuscript are listed in:
+## Exact databases used in the manuscript
+
+The database releases used during development, validation, benchmarking, and manuscript generation are documented in:
 
 ```text
-assets/reference_databases_used_in_manuscript.tsv
+databases/reference_databases_used_in_manuscript.tsv
+```
+
+To simplify installation, Shotgun-NF provides a helper script that prepares the expected database directory structure and generates a template configuration file containing all required database paths:
+
+```bash
+bash scripts/download_reference_assets.sh databases
+```
+
+Users may use newer database releases, although results may differ from those reported in this manuscript.
 
 # Shotgun-NF Database Requirements
 
 Shotgun-NF requires several external reference databases. These databases are not distributed with the repository and must be downloaded separately before running the pipeline.
 
-The database versions listed below were used during development, validation, benchmarking, and manuscript generation. Users may use newer releases, although results may differ from those reported in the manuscript.
+The database versions listed below were used during development, validation, benchmarking, and manuscript preparation. Newer database releases are expected to be compatible with the workflow but may produce results that differ from those reported in this manuscript.
 
 ## Quick Setup
 
@@ -155,7 +166,7 @@ Configuration:
 
 ```groovy
 metaphlan_db_dir = "/path/to/metaphlan_database"
-metaphlan_index  = "mpa_vJan25_CHOCOPhlAnSGB_202503"
+metaphlan_index  = "mpa_vJun23_CHOCOPhlAnSGB_202307"
 ```
 
 Source:
@@ -202,12 +213,12 @@ Tool version:
 
 Reference database used in manuscript:
 
-* mpa_vJan25_CHOCOPhlAnSGB_202503.pkl
+* mpa_vJun23_CHOCOPhlAnSGB_202307.pkl
 
 Configuration:
 
 ```groovy
-strainphlan_pkl = "/path/to/metaphlan_database/mpa_vJan25_CHOCOPhlAnSGB_202503.pkl"
+strainphlan_pkl = "/path/to/metaphlan_database/mpa_vJun23_CHOCOPhlAnSGB_202307.pkl"
 ```
 
 The PKL file is generated as part of the MetaPhlAn database installation.
@@ -338,3 +349,4 @@ host_index = "/path/to/bowtie2_index"
 | gtdbtk_db            | GTDB-Tk database                    |
 | host_index           | Host genome Bowtie2 index           |
 
+For complete reproducibility of the analyses presented in this manuscript, users are encouraged to use the database releases listed in `databases/reference_databases_used_in_manuscript.tsv`.
