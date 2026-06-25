@@ -34,10 +34,15 @@ process CHECK_DATABASES {
     check_path "kraken2_db" "${params.kraken2_db}"
     check_path "krona_taxonomy" "${params.krona_taxonomy}"
     check_path "metaphlan_db_dir" "${params.metaphlan_db_dir}"
-    check_path "humann_nucleotide_db" "${params.humann_nucleotide_db}"
-    check_path "humann_protein_db" "${params.humann_protein_db}"
-    check_path "humann_sif" "${params.humann_sif}"
-    check_path "strainphlan_pkl" "${params.strainphlan_pkl}"
+    if [ "${params.run_humann}" = "true" ]; then
+        check_path "humann_nucleotide_db" "${params.humann_nucleotide_db}"
+        check_path "humann_protein_db" "${params.humann_protein_db}"
+        check_path "humann_sif" "${params.humann_sif}"
+    fi
+
+    if [ "${params.run_strainphlan}" = "true" ]; then
+        check_path "strainphlan_pkl" "${params.strainphlan_pkl}"
+    fi
 
     echo "Database validation completed successfully."
     """
