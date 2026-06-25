@@ -71,6 +71,7 @@ Run the complete workflow with full provenance reporting:
 ```bash
 nextflow run . \
   -profile local \
+  -c my.config \
   --input samplesheet.csv \
   --outdir results \
   --make_report true \
