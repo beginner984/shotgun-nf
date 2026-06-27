@@ -36,6 +36,13 @@ check_path "metaphlan_db_dir" "${params.metaphlan_db_dir}"
 
 if [ "${params.skip_krona}" != "true" ]; then
     check_path "krona_taxonomy" "${params.krona_taxonomy}"
+
+    if [ ! -f "${params.krona_taxonomy}/taxonomy.tab" ] || [ ! -f "${params.krona_taxonomy}/accession2taxid" ]; then
+        echo "ERROR: Krona taxonomy database is incomplete: ${params.krona_taxonomy}" >&2
+        echo "Expected files include taxonomy.tab and accession2taxid." >&2
+        echo "Create it with Krona updateTaxonomy.sh, or set --skip_krona true." >&2
+        exit 1
+    fi
 fi
 
 if [ "${params.run_humann}" = "true" ]; then
