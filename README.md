@@ -90,6 +90,28 @@ nextflow run . \
   -with-dag results/pipeline_info/dag.html
 ```
 
+### Running with Apptainer
+
+If Apptainer is available on your system, the pipeline can be executed using the built-in Apptainer profile:
+
+```bash
+nextflow run . \
+    -profile apptainer \
+    -c my.config \
+    --input samplesheet.csv \
+    --outdir results
+```
+
+On HPC systems, the Apptainer profile can be combined with a cluster profile. For example:
+
+```bash
+nextflow run . \
+    -profile apptainer,eureka2 \
+    -c my.config \
+    --input samplesheet.csv \
+    --outdir results
+```
+
 ## Outputs
 
 Shotgun-NF generates analysis-specific result directories, MultiQC summaries, optional HTML reports, and Nextflow execution reports. See `OUTPUT_MAP.md` for a detailed description of all output files and folders.
