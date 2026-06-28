@@ -66,6 +66,14 @@ Shotgun-NF provides the following analysis modules:
 
 ## Typical usage
 
+Before running the pipeline for the first time, create your own configuration file:
+
+```bash
+cp conf/example.config my.config
+```
+
+Edit `my.config` and replace the placeholder database paths with those on your system.
+
 Run the complete workflow with full provenance reporting:
 
 ```bash
@@ -92,4 +100,4 @@ If you are using Shotgun-NF for the first time, please see the detailed installa
 
 * **Getting Started:** `docs/getting_started.md`
 * **Database installation:** `DATABASES.md`
-* **Example configuration:** `conf/template.config`
+* **Example configuration:** `conf/example.config`

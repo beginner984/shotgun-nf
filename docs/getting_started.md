@@ -53,7 +53,7 @@ Shotgun-NF is configured through a user-specific configuration file. The recomme
 Create your own configuration file:
 
 ```bash
-cp conf/template.config my.config
+cp conf/example.config my.config
 ```
 
 Open `my.config` in your preferred text editor and update the database paths to match your system.
@@ -77,7 +77,7 @@ run_strainphlan = false
 skip_host_removal = true
 ```
 
-The original `conf/template.config` should remain unchanged so that it can be reused as a clean template. All user-specific modifications should be made in `my.config`.
+The original `conf/example.config` should remain unchanged so that it can be reused as a clean template. All user-specific modifications should be made in `my.config`.
 
 The pipeline can then be executed using:
 
@@ -176,7 +176,6 @@ If an execution is interrupted, rerun the same command with the `-resume` option
 
 For additional configuration examples, see:
 
-* `conf/template.config`
 * `conf/example.config`
 * `docs/external_user_configuration.md`
 
