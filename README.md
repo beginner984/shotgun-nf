@@ -69,7 +69,7 @@ Shotgun-NF provides the following analysis modules:
 Before running the pipeline for the first time, create your own configuration file:
 
 ```bash
-cp conf/example.config my.config
+conf/user.config.example my.config
 ```
 
 Edit `my.config` and replace the placeholder database paths with those on your system.

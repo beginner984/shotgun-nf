@@ -74,3 +74,4 @@ test_results/
 results/
 work/
 .nextflow/
+local_eureka_databases.config

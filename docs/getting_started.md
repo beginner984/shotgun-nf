@@ -2,21 +2,22 @@
 
 ## Introduction
 
-This guide explains how to install, configure, and execute Shotgun-NF on a local workstation or high-performance computing (HPC) cluster.
-
-The pipeline is modular and allows users to execute either the complete workflow or selected analysis modules according to their study design.
+Shotgun-NF is a Nextflow DSL2 pipeline for comprehensive shotgun metagenomics analysis. It can be executed on local workstations or HPC clusters using either Conda or Apptainer.
 
 ---
 
-# 1. Requirements
+# 1. Prerequisites
 
 Before running Shotgun-NF, ensure that the following software is installed:
 
-* Java (version 17 or later)
-* Nextflow
-* Conda (Miniconda or Mambaforge)
-* Apptainer/Singularity (required for selected modules)
-* Git
+- Java (17 or later)
+- Nextflow
+- Git
+
+Depending on how you intend to run the pipeline:
+
+- Conda (Miniconda or Mambaforge)
+- Apptainer/Singularity (optional)
 
 ---
 
@@ -29,71 +30,58 @@ cd shotgun-nf
 
 ---
 
-# 3. Download required databases
+# 3. Download reference databases
 
 Shotgun-NF does not distribute third-party databases.
 
-Please follow the instructions in `DATABASES.md` to download and configure:
+Download the required databases by following the instructions in:
 
-* Kraken2 database
-* CheckM2 database
-* MetaPhlAn database
-* HUMAnN nucleotide database
-* HUMAnN protein database
-* CARD database
-* GTDB-Tk database
-* antiSMASH container (optional)
+```
+DATABASES.md
+```
+
+Alternatively, a helper script is provided:
+
+```bash
+bash scripts/download_reference_assets.sh databases
+```
+
+The helper script generates download instructions and an example database configuration file. Alternatively, users can create their own configuration from conf/user.config.example.
 
 ---
 
-## Configure Shotgun-NF
+# 4. Configure the pipeline
 
-Shotgun-NF is configured through a user-specific configuration file. The recommended approach is to create a personal copy of the provided template and modify it according to your local environment.
-
-Create your own configuration file:
+Create your own configuration file.
 
 ```bash
-cp conf/example.config my.config
+cp conf/user.config.example my.config
 ```
 
-Open `my.config` in your preferred text editor and update the database paths to match your system.
+Edit `my.config` and replace the placeholder database paths with the locations on your system.
 
 For example:
 
 ```groovy
-checkm2_db = "/data/databases/checkm2/uniref100.KO.1.dmnd"
-kraken2_db = "/data/databases/kraken2"
-card_db    = "/data/databases/CARD/localDB"
-gtdbtk_db  = "/data/databases/gtdbtk/release226"
+checkm2_db       = "/data/checkm2/uniref100.KO.1.dmnd"
+kraken2_db       = "/data/kraken2"
+card_db          = "/data/CARD/localDB"
+metaphlan_db_dir = "/data/metaphlan"
 ```
 
-You may also customise which modules are executed by changing the corresponding boolean parameters. For example:
+**Important**
 
-```groovy
-run_gtdbtk      = true
-run_fastani     = true
-run_eggnog      = false
-run_strainphlan = false
-skip_host_removal = true
-```
+`my.config` should only contain user-specific parameters such as database paths and analysis options.
 
-The original `conf/example.config` should remain unchanged so that it can be reused as a clean template. All user-specific modifications should be made in `my.config`.
+Do **not** modify execution settings (executor, Conda, Apptainer, etc.). Those are selected using Nextflow profiles.
 
-The pipeline can then be executed using:
+---
 
-```bash
-nextflow run beginner984/shotgun-nf \
-    -profile local \
-    -c my.config \
-    --input samplesheet.csv \
-    --outdir results
-```
 # 5. Prepare the input samplesheet
 
-The input samplesheet must contain three columns:
+The samplesheet must contain three columns:
 
 | sample | fastq_1 | fastq_2 |
-| ------ | ------- | ------- |
 
 Example:
 
@@ -105,84 +93,94 @@ Sample2,/path/to/Sample2_R1.fastq.gz,/path/to/Sample2_R2.fastq.gz
 
 ---
 
-# 6. Run the complete pipeline
+# 6. Choose an execution profile
+
+Shotgun-NF separates user configuration from execution.
+
+Choose the profile appropriate for your system. Execution profiles determine how Shotgun-NF is executed (local workstation, HPC cluster, Conda or Apptainer). my.config should only contain user-specific parameters such as database paths and analysis options.
+
+## Local workstation (Conda)
 
 ```bash
 nextflow run beginner984/shotgun-nf \
--profile local \
--c my.config \
---input samplesheet.csv \
---outdir results
+    -profile local \
+    -c my.config \
+    --input path/to/samplesheet.csv \
+    --outdir results \
+    -resume
+```
+
+## HPC cluster using Conda
+
+Example (Eureka2):
+
+```bash
+nextflow run beginner984/shotgun-nf \
+    -profile conda,eureka2 \
+    -c my.config \
+    --input path/to/samplesheet.csv \
+    --outdir results \
+    -resume
+```
+
+## HPC cluster using Apptainer
+
+Example (Eureka2):
+
+```bash
+nextflow run beginner984/shotgun-nf \
+    -profile apptainer,eureka2 \
+    -c my.config \
+    --input path/to/samplesheet.csv \
+    --outdir results \
+    -resume
 ```
 
 ---
 
-# 7. Modular execution
+# 7. Optional modules
 
-Individual modules can be enabled or disabled according to the experimental design.
+Optional analyses can be enabled or disabled in `my.config`.
 
 Examples include:
 
-* host removal
-* HUMAnN functional profiling
-* eggNOG annotation
-* antiSMASH
-* GTDB-Tk
-* FastANI
-* StrainPhlAn
+- HUMAnN
+- GTDB-Tk
+- FastANI
+- StrainPhlAn
+- eggNOG
+- antiSMASH
 
-See the README for the available parameters.
-
----
-
-# 8. Resume interrupted analyses
-
-Shotgun-NF supports automatic execution resumption.
-
-```bash
-nextflow run beginner984/shotgun-nf \
--profile local \
--c my.config \
---input samplesheet.csv \
---outdir results \
--resume
-```
+See the README for all available parameters.
 
 ---
 
-# 9. Output structure
+# 8. Output
 
-The output directory contains results organised by analysis module, including:
+Shotgun-NF produces:
 
-* quality control reports
-* taxonomic profiling
-* assemblies
-* MAGs
-* genome annotations
-* antimicrobial resistance predictions
-* biosynthetic gene cluster predictions
-* strain-level analyses
-* comparative genomics results
-* MultiQC summaries
-* execution reports
-
----
-
-# 10. Troubleshooting
-
-If a required database path is missing or incorrect, the pipeline will terminate with an informative error message.
-
-If an execution is interrupted, rerun the same command with the `-resume` option to continue from completed steps.
-
-For additional configuration examples, see:
-
-* `conf/example.config`
-* `docs/external_user_configuration.md`
+- Quality-control reports
+- Taxonomic profiles
+- Assemblies
+- MAGs
+- Functional annotation
+- AMR prediction
+- BGC prediction
+- Comparative genomics
+- MultiQC report
+- Pipeline provenance
+- Optional HTML report
 
 ---
 
-# 11. Citation
+# 9. Troubleshooting
 
-If you use Shotgun-NF in your research, please cite the associated publication together with the GitHub repository and release version.
+If a required database path is missing, the pipeline will terminate during the database validation step with an informative error message.
 
+If a previous execution exists, rerun the same command with `-resume` to continue from completed steps.
 
+---
+
+# 10. Citation
+
+If you use Shotgun-NF in your research, please cite the accompanying publication together with the GitHub repository and release version.
